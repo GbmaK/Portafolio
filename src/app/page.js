@@ -367,12 +367,12 @@ export default function Portfolio() {
                       Código
                     </Link>
                   </Button>
-                  {/* <Button size="sm" variant="outline" asChild>
-                    <Link href="" target="_blank">
+                  <Button size="sm" variant="outline" asChild>
+                    <Link href="https://gato-rust.vercel.app/" target="_blank">
                       <ExternalLink className="mr-2 h-4 w-4" />
                       Demo
                     </Link>
-                  </Button> */}
+                  </Button> 
                 </div>
               </CardContent>
             </Card>
