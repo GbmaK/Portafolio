@@ -134,24 +134,24 @@ export default function Portfolio() {
       {/* About Section */}
       <section id="sobre-mi" className="py-20 bg-muted/50">
         <div className="container px-4 md:px-6">
-          <div className="grid gap-10 lg:grid-cols-2 items-center">
-            <div className="space-y-4 self-center">
-              <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm">Sobre mí</div>
+          <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[1.1fr_0.9fr] items-center">
+            <div className="space-y-4 self-center text-center lg:text-left">
+              <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm mx-auto lg:mx-0">Sobre mí</div>
               <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl">
                 Tecnología aplicada a procesos y datos
               </h2>
-              <p className="text-muted-foreground md:text-lg">
+              <p className="text-muted-foreground md:text-lg lg:max-w-xl mx-auto lg:mx-0">
                 Desarrollador de software con experiencia en el diseño e implementación de sistemas digitales
                 orientados a la automatización de procesos, análisis de datos y optimización operativa. Especializado
                 en el desarrollo de aplicaciones web, APIs y plataformas de gestión de información, con foco en
                 trazabilidad, control y visualización de datos para la toma de decisiones.
               </p>
-              <p className="text-muted-foreground md:text-lg">
+              <p className="text-muted-foreground md:text-lg lg:max-w-xl mx-auto lg:mx-0">
                 He participado en proyectos tecnológicos en Chile y Canadá, trabajando en equipos colaborativos y con
                 altos estándares técnicos. Perfil adaptable a contextos industriales y productivos, con interés en
                 aportar a la transformación digital del sector acuícola.
               </p>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap justify-center lg:justify-start gap-2">
                 <Badge variant="secondary">Full-Stack</Badge>
                 <Badge variant="secondary">Automatización</Badge>
                 <Badge variant="secondary">Integración de APIs</Badge>
@@ -159,23 +159,47 @@ export default function Portfolio() {
                 <Badge variant="secondary">Análisis de datos</Badge>
                 <Badge variant="secondary">Trabajo colaborativo</Badge>
               </div>
-              <Button asChild>
-                <a href="Gustavo Mardones Resume.pdf" download>
-                  <Download className="mr-2 h-4 w-4" />
-                  Descargar CV
-                </a>
-              </Button>
-            </div>
-            <div className="flex justify-center">
-              <div className="relative">
-                <Image
-                  src="/placeholder.svg?height=400&width=400"
-                  alt="Foto de perfil"
-                  width={400}
-                  height={400}
-                  className="rounded-full object-cover"
-                />
+              <div className="flex justify-center lg:justify-start">
+                <Button asChild>
+                  <a href="Gustavo Mardones Resume.pdf" download>
+                    <Download className="mr-2 h-4 w-4" />
+                    Descargar CV
+                  </a>
+                </Button>
               </div>
+            </div>
+            <div className="flex justify-center lg:justify-end">
+              <Card className="w-full max-w-sm">
+                <CardHeader>
+                  <CardTitle>Perfil rápido</CardTitle>
+                  <CardDescription>Disponible para nuevos desafíos</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  <div className="flex flex-col items-center gap-3">
+                    <div className="flex h-32 w-32 items-center justify-center rounded-full bg-gradient-to-br from-primary/20 via-muted to-background text-3xl font-bold text-foreground">
+                      GM
+                    </div>
+                    <div className="text-center">
+                      <p className="text-lg font-semibold">Gustavo Mardones</p>
+                      <p className="text-sm text-muted-foreground">Desarrollador de Software / Analista TI</p>
+                    </div>
+                  </div>
+                  <div className="space-y-2 text-sm text-muted-foreground">
+                    <div className="flex items-center justify-center gap-2">
+                      <MapPin className="h-4 w-4" />
+                      <span>Puerto Montt, Chile</span>
+                    </div>
+                    <div className="flex items-center justify-center gap-2">
+                      <Mail className="h-4 w-4" />
+                      <span>gustavo.altaner@gmail.com</span>
+                    </div>
+                    <div className="flex items-center justify-center gap-2">
+                      <Phone className="h-4 w-4" />
+                      <span>+56 9 4517 0710</span>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
           </div>
         </div>
@@ -191,7 +215,7 @@ export default function Portfolio() {
               Experiencia en Chile y Canadá, colaborando en equipos técnicos y proyectos orientados a resultados.
             </p>
           </div>
-          <div className="mx-auto grid max-w-5xl gap-6 py-12 lg:grid-cols-2 lg:gap-8">
+          <div className="mx-auto grid max-w-6xl gap-6 py-12 lg:grid-cols-2 lg:gap-8">
             <Card>
               <CardHeader>
                 <CardTitle>Desarrollador Full-Stack</CardTitle>
@@ -234,7 +258,7 @@ export default function Portfolio() {
                 </div>
               </CardContent>
             </Card>
-            <Card>
+            <Card className="lg:col-span-2 lg:mx-auto lg:max-w-3xl">
               <CardHeader>
                 <CardTitle>Pasante de Desarrollo de Software</CardTitle>
                 <CardDescription>3UP Consulting Group SAC · Puerto Montt, Chile | Feb 2025</CardDescription>
@@ -306,8 +330,8 @@ export default function Portfolio() {
               Tecnologías, servicios y enfoques con los que desarrollo soluciones web y de automatización.
             </p>
           </div>
-          <div className="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-3 lg:gap-12">
-            <Card>
+          <div className="mx-auto flex max-w-6xl flex-wrap justify-center gap-6 py-12">
+            <Card className="w-full max-w-sm">
               <CardHeader>
                 <Code className="h-10 w-10 text-primary" />
                 <CardTitle>Lenguajes & Frameworks</CardTitle>
@@ -324,7 +348,7 @@ export default function Portfolio() {
                 </div>
               </CardContent>
             </Card>
-            <Card>
+            <Card className="w-full max-w-sm">
               <CardHeader>
                 <Database className="h-10 w-10 text-primary" />
                 <CardTitle>Bases de Datos</CardTitle>
@@ -338,7 +362,7 @@ export default function Portfolio() {
                 </div>
               </CardContent>
             </Card>
-            <Card>
+            <Card className="w-full max-w-sm">
               <CardHeader>
                 <Smartphone className="h-10 w-10 text-primary" />
                 <CardTitle>APIs & Servicios</CardTitle>
@@ -352,7 +376,7 @@ export default function Portfolio() {
                 </div>
               </CardContent>
             </Card>
-            <Card>
+            <Card className="w-full max-w-sm">
               <CardHeader>
                 <GitBranch className="h-10 w-10 text-primary" />
                 <CardTitle>Herramientas & Entornos</CardTitle>
@@ -367,7 +391,7 @@ export default function Portfolio() {
                 </div>
               </CardContent>
             </Card>
-            <Card>
+            <Card className="w-full max-w-sm">
               <CardHeader>
                 <Briefcase className="h-10 w-10 text-primary" />
                 <CardTitle>Especialidades</CardTitle>
