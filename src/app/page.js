@@ -11,9 +11,7 @@ import {
   ExternalLink,
   Code,
   Database,
-  Globe,
   Smartphone,
-  Server,
   GitBranch,
   Briefcase,
   MessageSquare,
@@ -33,7 +31,7 @@ export default function Portfolio() {
           <div className="mr-4 flex">
             <Link href="#" className="mr-6 flex items-center space-x-2">
               <Code className="h-6 w-6" />
-              <span className="font-bold">Mi Portafolio</span>
+              <span className="font-bold">Gustavo Mardones</span>
             </Link>
           </div>
           <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
@@ -43,6 +41,12 @@ export default function Portfolio() {
               </Link>
               <Link href="#sobre-mi" className="hover:text-foreground/80">
                 Sobre mí
+              </Link>
+              <Link href="#experiencia" className="hover:text-foreground/80">
+                Experiencia
+              </Link>
+              <Link href="#educacion" className="hover:text-foreground/80">
+                Educación
               </Link>
               <Link href="#habilidades" className="hover:text-foreground/80">
                 Habilidades
@@ -63,20 +67,37 @@ export default function Portfolio() {
         <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center space-y-4 text-center">
             <div className="space-y-2">
-              <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm">Desarrollador Junior</div>
+              <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm">
+                Desarrollador de Software / Analista TI
+              </div>
               <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
-                Hola, soy <span className="text-primary">Gustavo</span>
+                Hola, soy <span className="text-primary">Gustavo Mardones</span>
               </h1>
               <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl">
-                Desarrollador de software apasionado por crear soluciones innovadoras y experiencias digitales
-                excepcionales. Especializado en desarrollo web moderno y tecnologías emergentes.
+                Desarrollador de software con experiencia en automatización de procesos, análisis de datos y
+                plataformas de gestión de información. Enfocado en trazabilidad, control y visualización de datos para
+                apoyar la toma de decisiones.
               </p>
+              <div className="flex flex-wrap items-center justify-center gap-4 text-sm text-muted-foreground">
+                <span className="inline-flex items-center gap-2">
+                  <MapPin className="h-4 w-4" />
+                  Puerto Montt, Chile
+                </span>
+                <span className="inline-flex items-center gap-2">
+                  <Mail className="h-4 w-4" />
+                  gustavo.altaner@gmail.com
+                </span>
+                <span className="inline-flex items-center gap-2">
+                  <Phone className="h-4 w-4" />
+                  +56 9 4517 0710
+                </span>
+              </div>
             </div>
             <div className="flex flex-col gap-2 min-[400px]:flex-row">
               <Button size="lg" asChild>
-                <Link href="#proyectos">
+                <Link href="#experiencia">
                   <Briefcase className="mr-2 h-4 w-4" />
-                  Ver Proyectos
+                  Ver Experiencia
                 </Link>
               </Button>
               <Button variant="outline" size="lg" asChild>
@@ -117,23 +138,26 @@ export default function Portfolio() {
             <div className="space-y-4 self-center">
               <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm">Sobre mí</div>
               <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl">
-                Desarrollador apasionado por la tecnología
+                Tecnología aplicada a procesos y datos
               </h2>
               <p className="text-muted-foreground md:text-lg">
-                Soy un desarrollador junior con una gran pasión por aprender y crear. Me especializo en desarrollo web
-                con tecnologías modernas como React, Next.js y Node.js. Siempre estoy buscando nuevos desafíos y
-                oportunidades para crecer profesionalmente.
+                Desarrollador de software con experiencia en el diseño e implementación de sistemas digitales
+                orientados a la automatización de procesos, análisis de datos y optimización operativa. Especializado
+                en el desarrollo de aplicaciones web, APIs y plataformas de gestión de información, con foco en
+                trazabilidad, control y visualización de datos para la toma de decisiones.
               </p>
               <p className="text-muted-foreground md:text-lg">
-                Mi objetivo es contribuir a proyectos innovadores mientras continúo desarrollando mis habilidades
-                técnicas y colaborativas. Me encanta trabajar en equipo y estoy siempre dispuesto a aprender de
-                desarrolladores más experimentados.
+                He participado en proyectos tecnológicos en Chile y Canadá, trabajando en equipos colaborativos y con
+                altos estándares técnicos. Perfil adaptable a contextos industriales y productivos, con interés en
+                aportar a la transformación digital del sector acuícola.
               </p>
               <div className="flex flex-wrap gap-2">
-                <Badge variant="secondary">Autodidacta</Badge>
-                <Badge variant="secondary">Trabajo en equipo</Badge>
-                <Badge variant="secondary">Resolución de problemas</Badge>
-                <Badge variant="secondary">Aprendizaje continuo</Badge>
+                <Badge variant="secondary">Full-Stack</Badge>
+                <Badge variant="secondary">Automatización</Badge>
+                <Badge variant="secondary">Integración de APIs</Badge>
+                <Badge variant="secondary">Trazabilidad</Badge>
+                <Badge variant="secondary">Análisis de datos</Badge>
+                <Badge variant="secondary">Trabajo colaborativo</Badge>
               </div>
               <Button asChild>
                 <a href="Gustavo Mardones Resume.pdf" download>
@@ -157,6 +181,121 @@ export default function Portfolio() {
         </div>
       </section>
 
+      {/* Experience Section */}
+      <section id="experiencia" className="py-20">
+        <div className="container px-4 md:px-6">
+          <div className="flex flex-col items-center space-y-4 text-center">
+            <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm">Experiencia</div>
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl">Experiencia laboral</h2>
+            <p className="mx-auto max-w-[700px] text-muted-foreground md:text-lg">
+              Experiencia en Chile y Canadá, colaborando en equipos técnicos y proyectos orientados a resultados.
+            </p>
+          </div>
+          <div className="mx-auto grid max-w-5xl gap-6 py-12 lg:grid-cols-2 lg:gap-8">
+            <Card>
+              <CardHeader>
+                <CardTitle>Desarrollador Full-Stack</CardTitle>
+                <CardDescription>Wyletable (Startup) · Remoto | Oct 2025 – Ene 2026</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2 text-sm text-muted-foreground list-disc pl-4">
+                  <li>Desarrollo integral de un agente virtual inteligente para gestión operativa y administrativa.</li>
+                  <li>Implementación de arquitectura full-stack con Next.js y Supabase.</li>
+                  <li>Integración de Google Gemini API para automatización de procesos y análisis de información.</li>
+                  <li>Gestión de citas, procesamiento de documentos y control de usuarios.</li>
+                  <li>Integración de llamadas automáticas vía Twilio y panel de analítica de uso.</li>
+                  <li>Autenticación, control de roles y rutas protegidas.</li>
+                </ul>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  <Badge variant="outline">Next.js</Badge>
+                  <Badge variant="outline">Supabase</Badge>
+                  <Badge variant="outline">Gemini API</Badge>
+                  <Badge variant="outline">Twilio</Badge>
+                </div>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle>Desarrollador de Software</CardTitle>
+                <CardDescription>Plexxis Software · Victoria, BC, Canadá | Nov 2024 – Oct 2025</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2 text-sm text-muted-foreground list-disc pl-4">
+                  <li>Desarrollo de funcionalidades para plataforma SaaS empresarial del sector construcción.</li>
+                  <li>Mejoras en frontend con React y optimización de backend y endpoints.</li>
+                  <li>Participación en metodologías ágiles, reuniones técnicas y code reviews.</li>
+                  <li>Trabajo en equipo internacional con comunicación técnica en inglés.</li>
+                  <li>Enfoque en rendimiento, mantenibilidad y calidad del software.</li>
+                </ul>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  <Badge variant="outline">React</Badge>
+                  <Badge variant="outline">SaaS</Badge>
+                  <Badge variant="outline">Agile</Badge>
+                </div>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle>Pasante de Desarrollo de Software</CardTitle>
+                <CardDescription>3UP Consulting Group SAC · Puerto Montt, Chile | Feb 2025</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2 text-sm text-muted-foreground list-disc pl-4">
+                  <li>Desarrollo de herramienta para captura de imágenes con enmascaramiento SVG.</li>
+                  <li>Integración de base de datos MySQL para gestión de información y metadatos.</li>
+                  <li>Creación de scripts en Python para procesamiento de datos hiperespectrales.</li>
+                  <li>Documentación técnica y control de versiones con Git en entorno Linux.</li>
+                  <li>Aplicación en análisis visual y control de calidad industrial.</li>
+                </ul>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  <Badge variant="outline">Python</Badge>
+                  <Badge variant="outline">MySQL</Badge>
+                  <Badge variant="outline">Linux</Badge>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Education Section */}
+      <section id="educacion" className="py-20 bg-muted/50">
+        <div className="container px-4 md:px-6">
+          <div className="flex flex-col items-center space-y-4 text-center">
+            <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm">Educación</div>
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl">Formación e idiomas</h2>
+            <p className="mx-auto max-w-[700px] text-muted-foreground md:text-lg">
+              Base técnica sólida y comunicación efectiva en entornos profesionales.
+            </p>
+          </div>
+          <div className="mx-auto grid max-w-4xl gap-6 py-12 md:grid-cols-2">
+            <Card>
+              <CardHeader>
+                <CardTitle>Técnico Analista Programador</CardTitle>
+                <CardDescription>Institución de Educación Superior | 2023 – 2025</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground">
+                  Formación técnica orientada al desarrollo de software, análisis de sistemas y bases de datos.
+                </p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle>Idiomas</CardTitle>
+                <CardDescription>Colaboración en equipos internacionales</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="flex flex-wrap gap-2">
+                  <Badge>Español: Nativo</Badge>
+                  <Badge>Inglés: Avanzado</Badge>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
       {/* Skills Section */}
       <section id="habilidades" className="py-20">
         <div className="container px-4 md:px-6">
@@ -164,85 +303,84 @@ export default function Portfolio() {
             <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm">Habilidades</div>
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl">Tecnologías que domino</h2>
             <p className="mx-auto max-w-[700px] text-muted-foreground md:text-lg">
-              Estas son las principales tecnologías y herramientas con las que trabajo día a día.
+              Tecnologías, servicios y enfoques con los que desarrollo soluciones web y de automatización.
             </p>
           </div>
           <div className="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-3 lg:gap-12">
             <Card>
               <CardHeader>
-                <Globe className="h-10 w-10 text-primary" />
-                <CardTitle>Frontend</CardTitle>
-                <CardDescription>Desarrollo de interfaces modernas y responsivas</CardDescription>
+                <Code className="h-10 w-10 text-primary" />
+                <CardTitle>Lenguajes & Frameworks</CardTitle>
+                <CardDescription>Desarrollo web y backend moderno</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="flex flex-wrap gap-2">
-                  <Badge>HTML5</Badge>
-                  <Badge>CSS3</Badge>
                   <Badge>JavaScript</Badge>
+                  <Badge>TypeScript</Badge>
                   <Badge>React</Badge>
                   <Badge>Next.js</Badge>
-                  <Badge>Bootstrap</Badge>
-                </div>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader>
-                <Server className="h-10 w-10 text-primary" />
-                <CardTitle>Backend</CardTitle>
-                <CardDescription>Desarrollo de APIs y servicios del lado del servidor</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="flex flex-wrap gap-2">
-                  <Badge>Node.js</Badge>
                   <Badge>Python</Badge>
-                  <Badge>FastAPI</Badge>
-                  <Badge>REST APIs</Badge>
+                  <Badge>Django</Badge>
                 </div>
               </CardContent>
             </Card>
             <Card>
               <CardHeader>
                 <Database className="h-10 w-10 text-primary" />
-                <CardTitle>Base de Datos</CardTitle>
-                <CardDescription>Gestión y diseño de bases de datos</CardDescription>
+                <CardTitle>Bases de Datos</CardTitle>
+                <CardDescription>Modelado y gestión de datos</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="flex flex-wrap gap-2">
-                  <Badge>MySQL</Badge>
                   <Badge>PostgreSQL</Badge>
-                  <Badge>MongoDB</Badge>
-                  <Badge>Firebase</Badge>
+                  <Badge>MySQL</Badge>
+                  <Badge>Supabase</Badge>
                 </div>
               </CardContent>
             </Card>
-            
+            <Card>
+              <CardHeader>
+                <Smartphone className="h-10 w-10 text-primary" />
+                <CardTitle>APIs & Servicios</CardTitle>
+                <CardDescription>Integraciones y automatización</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="flex flex-wrap gap-2">
+                  <Badge>OpenAI API</Badge>
+                  <Badge>Google Gemini API</Badge>
+                  <Badge>Twilio API</Badge>
+                </div>
+              </CardContent>
+            </Card>
             <Card>
               <CardHeader>
                 <GitBranch className="h-10 w-10 text-primary" />
-                <CardTitle>Herramientas</CardTitle>
-                <CardDescription>Control de versiones y herramientas de desarrollo</CardDescription>
+                <CardTitle>Herramientas & Entornos</CardTitle>
+                <CardDescription>Flujo de trabajo y diseño</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="flex flex-wrap gap-2">
                   <Badge>Git</Badge>
-                  <Badge>GitHub</Badge>
-                  <Badge>VS Code</Badge>
-                  <Badge>Vercel</Badge>
+                  <Badge>Linux</Badge>
                   <Badge>Figma</Badge>
+                  <Badge>Ngrok</Badge>
                 </div>
               </CardContent>
             </Card>
             <Card>
               <CardHeader>
-                <Code className="h-10 w-10 text-primary" />
-                <CardTitle>Otros</CardTitle>
-                <CardDescription>Metodologías y conceptos adicionales</CardDescription>
+                <Briefcase className="h-10 w-10 text-primary" />
+                <CardTitle>Especialidades</CardTitle>
+                <CardDescription>Enfoques para entregar valor</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="flex flex-wrap gap-2">
-                  <Badge>Agile</Badge>
-                  <Badge>Scrum</Badge>
-                  <Badge>Responsive Design</Badge>
+                  <Badge>Full-Stack</Badge>
+                  <Badge>Automatización</Badge>
+                  <Badge>Integración de APIs</Badge>
+                  <Badge>Dashboards</Badge>
+                  <Badge>Análisis de datos</Badge>
+                  <Badge>MVPs escalables</Badge>
                 </div>
               </CardContent>
             </Card>
@@ -266,9 +404,10 @@ export default function Portfolio() {
                 <Image src="/i3spectra.png" alt="Proyecto 1" fill className="object-cover" />
               </div>
               <CardHeader>
-                <CardTitle>Imagenes Hyperspectral</CardTitle>
+                <CardTitle>Imágenes hiperespectrales</CardTitle>
                 <CardDescription>
-                  Desarrollo de aplicación web con integración de cámaras hiperespectrales, comunicación hardware-software y trabajo colaborativo remoto en un proyecto confidencial.                
+                  Desarrollo de aplicación web con integración de cámaras hiperespectrales, comunicación
+                  hardware-software y trabajo colaborativo remoto en un proyecto confidencial.
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -297,14 +436,15 @@ export default function Portfolio() {
               <CardHeader>
                 <CardTitle>Magavi Project</CardTitle>
                 <CardDescription>
-                  Landing page en Next.js con dos modales de chat integrados, cada uno conectado a la API de ChatGPT con un contexto personalizado.
+                  Landing page en Next.js con dos modales de chat integrados, cada uno conectado a la OpenAI API con
+                  un contexto personalizado.
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="flex flex-wrap gap-2 mb-4">
                   <Badge variant="outline">Next.js</Badge>
                   <Badge variant="outline">JavaScript</Badge>
-                  <Badge variant="outline">ChatGPT API</Badge>
+                  <Badge variant="outline">OpenAI API</Badge>
                   <Badge variant="outline">Figma</Badge>
                 </div>
                 <div className="flex gap-2">
@@ -387,8 +527,8 @@ export default function Portfolio() {
             <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm">Contacto</div>
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl">¡Trabajemos juntos!</h2>
             <p className="mx-auto max-w-[700px] text-muted-foreground md:text-lg">
-              Estoy siempre abierto a nuevas oportunidades y colaboraciones. No dudes en contactarme si tienes algún
-              proyecto en mente.
+              Abierto a nuevas oportunidades y colaboraciones en desarrollo web, automatización e integración de APIs.
+              Si tienes un proyecto en mente, conversemos.
             </p>
           </div>
           <div className="mx-auto grid max-w-5xl gap-6 py-12 lg:grid-cols-2 lg:gap-12">
@@ -401,11 +541,11 @@ export default function Portfolio() {
                 </div>
                 <div className="flex items-center space-x-2">
                   <Phone className="h-4 w-4" />
-                  <span>+1 (778) 678-5151</span>
+                  <span>+56 9 4517 0710</span>
                 </div>
                 <div className="flex items-center space-x-2">
                   <MapPin className="h-4 w-4" />
-                  <span>Victoria, Canada</span>
+                  <span>Puerto Montt, Chile</span>
                 </div>
               </div>
               <div className="flex space-x-4">
@@ -467,7 +607,7 @@ export default function Portfolio() {
           <div className="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-2 md:px-0">
             <Code className="h-6 w-6" />
             <p className="text-center text-sm leading-loose text-muted-foreground md:text-left">
-              © 2024 Gustavo Mardones. Todos los derechos reservados.
+              © 2026 Gustavo Mardones. Todos los derechos reservados.
             </p>
           </div>
           <div className="flex items-center space-x-4">
