@@ -27,7 +27,7 @@ export default function Portfolio() {
     <div className="min-h-screen bg-background">
       {/* Navigation */}
       <nav className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container flex h-14 items-center">
+        <div className="mx-auto flex h-14 w-full max-w-6xl items-center px-4 md:px-6">
           <div className="mr-4 flex">
             <Link href="#" className="mr-6 flex items-center space-x-2">
               <Code className="h-6 w-6" />
@@ -64,7 +64,7 @@ export default function Portfolio() {
 
       {/* Hero Section */}
       <section id="inicio" className="py-20 md:py-32">
-        <div className="container px-4 md:px-6">
+        <div className="mx-auto w-full max-w-6xl px-4 md:px-6">
           <div className="flex flex-col items-center space-y-4 text-center">
             <div className="space-y-2">
               <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm">
@@ -133,7 +133,7 @@ export default function Portfolio() {
 
       {/* About Section */}
       <section id="sobre-mi" className="py-20 bg-muted/50">
-        <div className="container px-4 md:px-6">
+        <div className="mx-auto w-full max-w-6xl px-4 md:px-6">
           <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[1.1fr_0.9fr] items-center">
             <div className="space-y-4 self-center text-center lg:text-left">
               <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm mx-auto lg:mx-0">Sobre mí</div>
@@ -207,7 +207,7 @@ export default function Portfolio() {
 
       {/* Experience Section */}
       <section id="experiencia" className="py-20">
-        <div className="container px-4 md:px-6">
+        <div className="mx-auto w-full max-w-6xl px-4 md:px-6">
           <div className="flex flex-col items-center space-y-4 text-center">
             <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm">Experiencia</div>
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl">Experiencia laboral</h2>
@@ -284,7 +284,7 @@ export default function Portfolio() {
 
       {/* Education Section */}
       <section id="educacion" className="py-20 bg-muted/50">
-        <div className="container px-4 md:px-6">
+        <div className="mx-auto w-full max-w-6xl px-4 md:px-6">
           <div className="flex flex-col items-center space-y-4 text-center">
             <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm">Educación</div>
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl">Formación e idiomas</h2>
@@ -322,7 +322,7 @@ export default function Portfolio() {
 
       {/* Skills Section */}
       <section id="habilidades" className="py-20">
-        <div className="container px-4 md:px-6">
+        <div className="mx-auto w-full max-w-6xl px-4 md:px-6">
           <div className="flex flex-col items-center space-y-4 text-center">
             <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm">Habilidades</div>
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl">Tecnologías que domino</h2>
@@ -414,7 +414,7 @@ export default function Portfolio() {
 
       {/* Projects Section */}
       <section id="proyectos" className="py-20 bg-muted/50">
-        <div className="container px-4 md:px-6">
+        <div className="mx-auto w-full max-w-6xl px-4 md:px-6">
           <div className="flex flex-col items-center space-y-4 text-center">
             <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm">Proyectos</div>
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl">Mis trabajos recientes</h2>
@@ -546,7 +546,7 @@ export default function Portfolio() {
 
       {/* Contact Section */}
       <section id="contacto" className="py-20">
-        <div className="container px-4 md:px-6">
+        <div className="mx-auto w-full max-w-6xl px-4 md:px-6">
           <div className="flex flex-col items-center space-y-4 text-center">
             <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm">Contacto</div>
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl">¡Trabajemos juntos!</h2>
@@ -627,7 +627,7 @@ export default function Portfolio() {
 
       {/* Footer */}
       <footer className="border-t py-6 md:py-0">
-        <div className="container flex flex-col items-center justify-between gap-4 md:h-24 md:flex-row">
+        <div className="mx-auto flex w-full max-w-6xl flex-col items-center justify-between gap-4 px-4 md:h-24 md:flex-row md:px-6">
           <div className="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-2 md:px-0">
             <Code className="h-6 w-6" />
             <p className="text-center text-sm leading-loose text-muted-foreground md:text-left">
