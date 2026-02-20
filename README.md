@@ -34,3 +34,20 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Contact Form Setup (Email)
+
+The contact form sends emails through SMTP using the `/api/contact` endpoint.
+
+1. Copy `.env.example` to `.env.local`.
+2. Set your SMTP values:
+   - Required:
+     - `SMTP_USER` (your email)
+     - `SMTP_PASS` (for Gmail, use an App Password)
+   - Optional:
+     - `SMTP_HOST` (default: `smtp.gmail.com`)
+     - `SMTP_PORT` (default: `465`)
+     - `CONTACT_TO_EMAIL` (defaults to `SMTP_USER`)
+     - `CONTACT_FROM_EMAIL` (defaults to `SMTP_USER`)
+
+For Gmail, you need 2-step verification enabled and an App Password.
