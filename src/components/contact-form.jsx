@@ -39,20 +39,20 @@ export function ContactForm() {
       if (!response.ok) {
         setNotice({
           type: "error",
-          message: data?.message || "No se pudo enviar el mensaje. Inténtalo de nuevo.",
+          message: data?.message || "No se pudo enviar el mensaje. Intentalo de nuevo.",
         })
         return
       }
 
       setNotice({
         type: "success",
-        message: "Mensaje enviado con éxito. Te responderé pronto.",
+        message: "Mensaje enviado con exito. Te respondere pronto.",
       })
       setForm(INITIAL_FORM_STATE)
     } catch {
       setNotice({
         type: "error",
-        message: "No se pudo enviar el mensaje. Revisa tu conexión e inténtalo nuevamente.",
+        message: "No se pudo enviar el mensaje. Revisa tu conexion e intentalo nuevamente.",
       })
     } finally {
       setIsSending(false)
@@ -68,7 +68,9 @@ export function ContactForm() {
     <form className="space-y-4" onSubmit={handleSubmit}>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div className="space-y-2">
-          <Label htmlFor="nombre" className="text-slate-700 dark:text-slate-200">Nombre</Label>
+          <Label htmlFor="nombre" className="text-slate-700 dark:text-slate-200">
+            Nombre
+          </Label>
           <Input
             id="nombre"
             name="name"
@@ -76,11 +78,14 @@ export function ContactForm() {
             className="border-cyan-200/80 bg-white/80 focus-visible:border-cyan-500 focus-visible:ring-cyan-500/30 dark:border-cyan-900/60 dark:bg-cyan-950/10"
             value={form.name}
             onChange={updateField}
+            autoComplete="name"
             required
           />
         </div>
         <div className="space-y-2">
-          <Label htmlFor="email" className="text-slate-700 dark:text-slate-200">Email</Label>
+          <Label htmlFor="email" className="text-slate-700 dark:text-slate-200">
+            Email
+          </Label>
           <Input
             id="email"
             name="email"
@@ -89,13 +94,16 @@ export function ContactForm() {
             className="border-cyan-200/80 bg-white/80 focus-visible:border-cyan-500 focus-visible:ring-cyan-500/30 dark:border-cyan-900/60 dark:bg-cyan-950/10"
             value={form.email}
             onChange={updateField}
+            autoComplete="email"
             required
           />
         </div>
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="asunto" className="text-slate-700 dark:text-slate-200">Asunto</Label>
+        <Label htmlFor="asunto" className="text-slate-700 dark:text-slate-200">
+          Asunto
+        </Label>
         <Input
           id="asunto"
           name="subject"
@@ -103,19 +111,23 @@ export function ContactForm() {
           className="border-cyan-200/80 bg-white/80 focus-visible:border-cyan-500 focus-visible:ring-cyan-500/30 dark:border-cyan-900/60 dark:bg-cyan-950/10"
           value={form.subject}
           onChange={updateField}
+          maxLength={160}
           required
         />
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="mensaje" className="text-slate-700 dark:text-slate-200">Mensaje</Label>
+        <Label htmlFor="mensaje" className="text-slate-700 dark:text-slate-200">
+          Mensaje
+        </Label>
         <Textarea
           id="mensaje"
           name="message"
-          placeholder="Escribe tu mensaje aquí..."
+          placeholder="Escribe tu mensaje aqui..."
           className="min-h-[120px] border-cyan-200/80 bg-white/80 focus-visible:border-cyan-500 focus-visible:ring-cyan-500/30 dark:border-cyan-900/60 dark:bg-cyan-950/10"
           value={form.message}
           onChange={updateField}
+          maxLength={5000}
           required
         />
       </div>
@@ -150,6 +162,7 @@ export function ContactForm() {
         type="submit"
         className="w-full bg-gradient-to-r from-cyan-600 to-indigo-600 text-white hover:from-cyan-700 hover:to-indigo-700 dark:from-cyan-400 dark:to-indigo-400 dark:text-slate-950 dark:hover:from-cyan-300 dark:hover:to-indigo-300"
         disabled={isSending}
+        aria-busy={isSending}
       >
         {isSending ? "Enviando..." : "Enviar mensaje"}
       </Button>
