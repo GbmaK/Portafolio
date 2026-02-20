@@ -12,6 +12,12 @@ function getMissingEnvVars() {
   return REQUIRED_ENV_VARS.filter((name) => !process.env[name])
 }
 
+function isPlaceholder(value) {
+  if (typeof value !== "string") return true
+  const normalized = value.trim().toLowerCase()
+  return normalized === "" || normalized.includes("tu_app_password_de_gmail")
+}
+
 function parsePayload(payload) {
   const name = typeof payload?.name === "string" ? payload.name.trim() : ""
   const email = typeof payload?.email === "string" ? payload.email.trim() : ""
@@ -61,6 +67,13 @@ export async function POST(request) {
       )
     }
 
+    if (isPlaceholder(process.env.SMTP_USER) || isPlaceholder(process.env.SMTP_PASS)) {
+      return NextResponse.json(
+        { message: "Configura SMTP_USER y SMTP_PASS reales en .env.local (App Password de Gmail)." },
+        { status: 500 },
+      )
+    }
+
     const smtpHost = process.env.SMTP_HOST || DEFAULT_SMTP_HOST
     const smtpPort = Number(process.env.SMTP_PORT || DEFAULT_SMTP_PORT)
     if (Number.isNaN(smtpPort)) {
@@ -99,6 +112,13 @@ export async function POST(request) {
     return NextResponse.json({ message: "Mensaje enviado con éxito." }, { status: 200 })
   } catch (error) {
     console.error("Error enviando mensaje de contacto:", error)
+    if (error?.code === "EAUTH" || error?.responseCode === 535) {
+      return NextResponse.json(
+        { message: "Gmail rechazo las credenciales. Revisa SMTP_USER y usa un App Password valido." },
+        { status: 500 },
+      )
+    }
+
     return NextResponse.json(
       { message: "No se pudo enviar el mensaje. Inténtalo de nuevo." },
       { status: 500 },
