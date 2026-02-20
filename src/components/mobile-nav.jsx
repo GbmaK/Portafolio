@@ -25,7 +25,7 @@ export function MobileNav({ items = NAV_ITEMS, activeHref = "#inicio", onNavigat
         type="button"
         variant="outline"
         size="icon"
-        aria-label={open ? "Cerrar menu" : "Abrir menu"}
+        aria-label={open ? "Cerrar menú" : "Abrir menú"}
         aria-expanded={open}
         aria-controls="mobile-nav-menu"
         onClick={() => setOpen((prev) => !prev)}
@@ -38,7 +38,7 @@ export function MobileNav({ items = NAV_ITEMS, activeHref = "#inicio", onNavigat
           id="mobile-nav-menu"
           className="absolute left-0 top-[calc(100%+1px)] w-full border-b bg-background/95 px-4 py-4 shadow-lg backdrop-blur supports-[backdrop-filter]:bg-background/85"
         >
-          <nav className="flex flex-col gap-1 text-[0.96rem] font-semibold tracking-[0.01em]" aria-label="Navegacion movil">
+          <nav className="flex flex-col gap-1 text-[0.96rem] font-semibold tracking-[0.01em]" aria-label="Navegación móvil">
             {items.map((item) => {
               const toneClasses = getNavToneClasses(item.tone)
               const isActive = activeHref === item.href

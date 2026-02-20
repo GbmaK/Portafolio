@@ -91,7 +91,7 @@ export function SiteHeader() {
           <span className="truncate text-sm font-bold tracking-tight sm:text-[1.02rem]">Gustavo Mardones</span>
         </Link>
 
-        <nav className="hidden items-center gap-1 md:flex" aria-label="Navegacion principal">
+        <nav className="hidden items-center gap-1 md:flex" aria-label="Navegación principal">
           {items.map((item) => {
             const toneClasses = getNavToneClasses(item.tone)
             const isActive = item.href === activeHref

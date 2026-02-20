@@ -34,7 +34,7 @@ function validatePayload({ name, email, subject, message }) {
   }
 
   if (!EMAIL_REGEX.test(email)) {
-    return "Ingresa un correo valido."
+    return "Ingresa un correo válido."
   }
 
   if (name.length > 120 || email.length > 160 || subject.length > 160 || message.length > 5000) {
@@ -49,7 +49,7 @@ export async function POST(request) {
     const payload = parsePayload(await request.json())
 
     if (payload.website) {
-      return NextResponse.json({ message: "Mensaje enviado con exito." }, { status: 200 })
+      return NextResponse.json({ message: "Mensaje enviado con éxito." }, { status: 200 })
     }
 
     const validationError = validatePayload(payload)
@@ -76,7 +76,7 @@ export async function POST(request) {
     const smtpHost = process.env.SMTP_HOST || DEFAULT_SMTP_HOST
     const smtpPort = Number(process.env.SMTP_PORT || DEFAULT_SMTP_PORT)
     if (Number.isNaN(smtpPort)) {
-      return NextResponse.json({ message: "SMTP_PORT debe ser un numero valido." }, { status: 500 })
+      return NextResponse.json({ message: "SMTP_PORT debe ser un número válido." }, { status: 500 })
     }
 
     const transporter = nodemailer.createTransport({
@@ -109,17 +109,17 @@ export async function POST(request) {
       ].join("\n"),
     })
 
-    return NextResponse.json({ message: "Mensaje enviado con exito." }, { status: 200 })
+    return NextResponse.json({ message: "Mensaje enviado con éxito." }, { status: 200 })
   } catch (error) {
     console.error("Error enviando mensaje de contacto:", error)
 
     if (error?.code === "EAUTH" || error?.responseCode === 535) {
       return NextResponse.json(
-        { message: "Gmail rechazo las credenciales. Revisa SMTP_USER y usa un App Password valido." },
+        { message: "Gmail rechazó las credenciales. Revisa SMTP_USER y usa un App Password válido." },
         { status: 500 },
       )
     }
 
-    return NextResponse.json({ message: "No se pudo enviar el mensaje. Intentalo de nuevo." }, { status: 500 })
+    return NextResponse.json({ message: "No se pudo enviar el mensaje. Inténtalo de nuevo." }, { status: 500 })
   }
 }

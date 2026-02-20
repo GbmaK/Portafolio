@@ -1,8 +1,8 @@
 export const NAV_ITEMS = [
   { href: "#inicio", label: "Inicio", tone: "cyan" },
-  { href: "#sobre-mi", label: "Sobre mi", tone: "indigo" },
+  { href: "#sobre-mi", label: "Sobre mí", tone: "indigo" },
   { href: "#experiencia", label: "Experiencia", tone: "amber" },
-  { href: "#educacion", label: "Educacion", tone: "indigo" },
+  { href: "#educacion", label: "Educación", tone: "indigo" },
   { href: "#habilidades", label: "Habilidades", tone: "emerald" },
   { href: "#proyectos", label: "Proyectos", tone: "cyan" },
   { href: "#contacto", label: "Contacto", tone: "indigo" },
