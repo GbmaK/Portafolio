@@ -1,12 +1,23 @@
-export const NAV_ITEMS = [
-  { href: "#inicio", label: "Inicio", tone: "cyan" },
-  { href: "#sobre-mi", label: "Sobre mí", tone: "indigo" },
-  { href: "#experiencia", label: "Experiencia", tone: "amber" },
-  { href: "#educacion", label: "Educación", tone: "indigo" },
-  { href: "#habilidades", label: "Habilidades", tone: "emerald" },
-  { href: "#proyectos", label: "Proyectos", tone: "cyan" },
-  { href: "#contacto", label: "Contacto", tone: "indigo" },
-]
+const NAV_ITEMS_BY_LANGUAGE = {
+  es: [
+    { href: "#inicio", label: "Inicio", tone: "cyan" },
+    { href: "#sobre-mi", label: "Sobre mi", tone: "indigo" },
+    { href: "#experiencia", label: "Experiencia", tone: "amber" },
+    { href: "#educacion", label: "Educacion", tone: "indigo" },
+    { href: "#habilidades", label: "Habilidades", tone: "emerald" },
+    { href: "#proyectos", label: "Proyectos", tone: "cyan" },
+    { href: "#contacto", label: "Contacto", tone: "indigo" },
+  ],
+  en: [
+    { href: "#inicio", label: "Home", tone: "cyan" },
+    { href: "#sobre-mi", label: "About", tone: "indigo" },
+    { href: "#experiencia", label: "Experience", tone: "amber" },
+    { href: "#educacion", label: "Education", tone: "indigo" },
+    { href: "#habilidades", label: "Skills", tone: "emerald" },
+    { href: "#proyectos", label: "Projects", tone: "cyan" },
+    { href: "#contacto", label: "Contact", tone: "indigo" },
+  ],
+}
 
 const NAV_TONE_CLASSES = {
   cyan: {
@@ -29,6 +40,10 @@ const NAV_TONE_CLASSES = {
       "hover:bg-emerald-50 hover:text-emerald-700 dark:hover:bg-emerald-900/30 dark:hover:text-emerald-300",
     active: "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-200",
   },
+}
+
+export function getNavItems(language = "es") {
+  return NAV_ITEMS_BY_LANGUAGE[language] ?? NAV_ITEMS_BY_LANGUAGE.es
 }
 
 export function getNavToneClasses(tone) {

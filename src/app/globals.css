@@ -45,6 +45,9 @@
 
 :root {
   --radius: 0.625rem;
+  --motion-x: 0;
+  --motion-y: 0;
+  --scroll-progress: 0;
   --background: oklch(1 0 0);
   --foreground: oklch(0.13 0.028 261.692);
   --card: oklch(1 0 0);
@@ -181,9 +184,111 @@
   }
 }
 
+.visual-particles {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.58;
+  mix-blend-mode: multiply;
+}
+
+.dark .visual-particles {
+  opacity: 0.7;
+  mix-blend-mode: screen;
+}
+
+[data-parallax] {
+  will-change: transform;
+}
+
+[data-parallax="tilt"] {
+  transform: translate3d(
+    calc(var(--motion-x, 0) * var(--parallax-depth, 0px)),
+    calc(var(--motion-y, 0) * var(--parallax-depth, 0px)),
+    0
+  );
+  transition: transform 240ms cubic-bezier(0.18, 0.7, 0.22, 1);
+}
+
+[data-parallax="float"] {
+  transform: translate3d(0, calc((var(--scroll-progress, 0) - 0.5) * var(--parallax-depth, 0px)), 0);
+  transition: transform 350ms cubic-bezier(0.18, 0.7, 0.22, 1);
+}
+
+.custom-cursor-ring,
+.custom-cursor-dot {
+  pointer-events: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  translate: -50% -50%;
+  z-index: 80;
+  opacity: 0;
+}
+
+.custom-cursor-ring {
+  height: 2.2rem;
+  width: 2.2rem;
+  border-radius: 9999px;
+  border: 1.4px solid color-mix(in oklab, var(--color-ring) 75%, transparent);
+  background: color-mix(in oklab, var(--color-background) 82%, transparent);
+  box-shadow: 0 0 0 1px color-mix(in oklab, var(--color-ring) 18%, transparent);
+  transition:
+    width 220ms ease,
+    height 220ms ease,
+    border-color 220ms ease,
+    background-color 220ms ease,
+    opacity 180ms ease;
+}
+
+.custom-cursor-dot {
+  height: 0.42rem;
+  width: 0.42rem;
+  border-radius: 9999px;
+  background: linear-gradient(120deg, oklch(0.56 0.21 257), oklch(0.76 0.16 205));
+  box-shadow: 0 0 14px color-mix(in oklab, var(--color-ring) 58%, transparent);
+  transition: opacity 160ms ease;
+}
+
+.custom-cursor-ring.is-visible,
+.custom-cursor-dot.is-visible {
+  opacity: 1;
+}
+
+.custom-cursor-ring.is-hover {
+  width: 3.2rem;
+  height: 3.2rem;
+  border-color: color-mix(in oklab, oklch(0.73 0.17 205) 80%, transparent);
+  background: color-mix(in oklab, oklch(0.95 0.03 225) 48%, transparent);
+}
+
+.custom-cursor-ring.is-click {
+  width: 1.75rem;
+  height: 1.75rem;
+}
+
+.fx-cursor-enabled,
+.fx-cursor-enabled a,
+.fx-cursor-enabled button,
+.fx-cursor-enabled input,
+.fx-cursor-enabled textarea,
+.fx-cursor-enabled select {
+  cursor: none !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+
+  .visual-particles {
+    display: none;
+  }
+
+  [data-parallax] {
+    transform: none !important;
+    transition: none !important;
   }
 
   *,

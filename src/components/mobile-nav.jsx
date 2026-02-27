@@ -5,11 +5,12 @@ import Link from "next/link"
 import { Menu, X } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
-import { getNavToneClasses, NAV_ITEMS } from "@/lib/navigation"
+import { getNavToneClasses } from "@/lib/navigation"
 import { cn } from "@/lib/utils"
 
-export function MobileNav({ items = NAV_ITEMS, activeHref = "#inicio", onNavigate }) {
+export function MobileNav({ items = [], activeHref = "#inicio", onNavigate, language = "es" }) {
   const [open, setOpen] = useState(false)
+  const isEnglish = language === "en"
 
   function handleLinkClick(event, href) {
     if (typeof onNavigate === "function") {
@@ -25,7 +26,7 @@ export function MobileNav({ items = NAV_ITEMS, activeHref = "#inicio", onNavigat
         type="button"
         variant="outline"
         size="icon"
-        aria-label={open ? "Cerrar menú" : "Abrir menú"}
+        aria-label={open ? (isEnglish ? "Close menu" : "Cerrar menu") : isEnglish ? "Open menu" : "Abrir menu"}
         aria-expanded={open}
         aria-controls="mobile-nav-menu"
         onClick={() => setOpen((prev) => !prev)}
@@ -38,7 +39,7 @@ export function MobileNav({ items = NAV_ITEMS, activeHref = "#inicio", onNavigat
           id="mobile-nav-menu"
           className="absolute left-0 top-[calc(100%+1px)] w-full border-b bg-background/95 px-4 py-4 shadow-lg backdrop-blur supports-[backdrop-filter]:bg-background/85"
         >
-          <nav className="flex flex-col gap-1 text-[0.96rem] font-semibold tracking-[0.01em]" aria-label="Navegación móvil">
+          <nav className="flex flex-col gap-1 text-[0.96rem] font-semibold tracking-[0.01em]" aria-label={isEnglish ? "Mobile navigation" : "Navegacion movil"}>
             {items.map((item) => {
               const toneClasses = getNavToneClasses(item.tone)
               const isActive = activeHref === item.href

@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { AlertCircle, CheckCircle2, Loader2, X } from "lucide-react"
 
+import { useLanguage } from "@/components/language-provider"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -20,6 +21,10 @@ const INITIAL_FORM_STATE = {
 }
 
 export function ContactForm() {
+  const { language } = useLanguage()
+  const isEnglish = language === "en"
+  const t = (es, en) => (isEnglish ? en : es)
+
   const [form, setForm] = useState(INITIAL_FORM_STATE)
   const [isSending, setIsSending] = useState(false)
   const [notice, setNotice] = useState(null)
@@ -37,6 +42,7 @@ export function ContactForm() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "X-Language": language,
         },
         body: JSON.stringify(form),
         signal: controller.signal,
@@ -47,21 +53,29 @@ export function ContactForm() {
       if (!response.ok) {
         setNotice({
           type: "error",
-          message: data?.message || "No se pudo enviar el mensaje. Inténtalo de nuevo.",
+          message: isEnglish
+            ? "The message could not be sent. Please try again."
+            : data?.message || "No se pudo enviar el mensaje. Intentalo de nuevo.",
         })
         return
       }
 
       setNotice({
         type: "success",
-        message: "Mensaje enviado con éxito. Te responderé pronto.",
+        message: t("Mensaje enviado con exito. Te respondere pronto.", "Message sent successfully. I will reply soon."),
       })
       setForm(INITIAL_FORM_STATE)
     } catch (error) {
       const timeoutMessage =
         error?.name === "AbortError"
-          ? "La solicitud tardó demasiado. Revisa tu conexión e inténtalo nuevamente."
-          : "No se pudo enviar el mensaje. Revisa tu conexión e inténtalo nuevamente."
+          ? t(
+              "La solicitud tardo demasiado. Revisa tu conexion e intentalo nuevamente.",
+              "The request took too long. Check your connection and try again.",
+            )
+          : t(
+              "No se pudo enviar el mensaje. Revisa tu conexion e intentalo nuevamente.",
+              "The message could not be sent. Check your connection and try again.",
+            )
 
       setNotice({
         type: "error",
@@ -89,12 +103,12 @@ export function ContactForm() {
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div className="space-y-2">
           <Label htmlFor="nombre" className="text-slate-700 dark:text-slate-200">
-            Nombre
+            {t("Nombre", "Name")}
           </Label>
           <Input
             id="nombre"
             name="name"
-            placeholder="Tu nombre"
+            placeholder={t("Tu nombre", "Your name")}
             className="border-cyan-200/80 bg-white/80 focus-visible:border-cyan-500 focus-visible:ring-cyan-500/30 dark:border-cyan-900/60 dark:bg-cyan-950/10"
             value={form.name}
             onChange={updateField}
@@ -111,7 +125,7 @@ export function ContactForm() {
             id="email"
             name="email"
             type="email"
-            placeholder="tu@email.com"
+            placeholder={t("tu@email.com", "your@email.com")}
             className="border-cyan-200/80 bg-white/80 focus-visible:border-cyan-500 focus-visible:ring-cyan-500/30 dark:border-cyan-900/60 dark:bg-cyan-950/10"
             value={form.email}
             onChange={updateField}
@@ -124,12 +138,12 @@ export function ContactForm() {
 
       <div className="space-y-2">
         <Label htmlFor="asunto" className="text-slate-700 dark:text-slate-200">
-          Asunto
+          {t("Asunto", "Subject")}
         </Label>
         <Input
           id="asunto"
           name="subject"
-          placeholder="Asunto del mensaje"
+          placeholder={t("Asunto del mensaje", "Message subject")}
           className="border-cyan-200/80 bg-white/80 focus-visible:border-cyan-500 focus-visible:ring-cyan-500/30 dark:border-cyan-900/60 dark:bg-cyan-950/10"
           value={form.subject}
           onChange={updateField}
@@ -140,12 +154,12 @@ export function ContactForm() {
 
       <div className="space-y-2">
         <Label htmlFor="mensaje" className="text-slate-700 dark:text-slate-200">
-          Mensaje
+          {t("Mensaje", "Message")}
         </Label>
         <Textarea
           id="mensaje"
           name="message"
-          placeholder="Escribe tu mensaje aquí..."
+          placeholder={t("Escribe tu mensaje aqui...", "Write your message here...")}
           className="min-h-[120px] border-cyan-200/80 bg-white/80 focus-visible:border-cyan-500 focus-visible:ring-cyan-500/30 dark:border-cyan-900/60 dark:bg-cyan-950/10"
           value={form.message}
           onChange={updateField}
@@ -160,14 +174,7 @@ export function ContactForm() {
 
       <div className="hidden" aria-hidden="true">
         <Label htmlFor="website">Website</Label>
-        <Input
-          id="website"
-          name="website"
-          autoComplete="off"
-          tabIndex={-1}
-          value={form.website}
-          onChange={updateField}
-        />
+        <Input id="website" name="website" autoComplete="off" tabIndex={-1} value={form.website} onChange={updateField} />
       </div>
 
       {notice ? (
@@ -185,7 +192,7 @@ export function ContactForm() {
               type="button"
               onClick={() => setNotice(null)}
               className="rounded p-0.5 opacity-80 transition hover:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
-              aria-label="Cerrar aviso"
+              aria-label={t("Cerrar aviso", "Close notice")}
             >
               <X className="h-4 w-4" aria-hidden="true" />
             </button>
@@ -202,10 +209,10 @@ export function ContactForm() {
         {isSending ? (
           <>
             <Loader2 className="mr-2 h-4 w-4 animate-spin" aria-hidden="true" />
-            Enviando mensaje...
+            {t("Enviando mensaje...", "Sending message...")}
           </>
         ) : (
-          "Enviar mensaje"
+          t("Enviar mensaje", "Send message")
         )}
       </Button>
     </form>

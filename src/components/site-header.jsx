@@ -2,11 +2,13 @@
 
 import { useEffect, useMemo, useState } from "react"
 import Link from "next/link"
-import { Code } from "lucide-react"
+import { Code, Languages } from "lucide-react"
 
 import { MobileNav } from "@/components/mobile-nav"
 import { ThemeToggle } from "@/components/theme-toggle"
-import { NAV_ITEMS, getNavToneClasses } from "@/lib/navigation"
+import { Button } from "@/components/ui/button"
+import { useLanguage } from "@/components/language-provider"
+import { getNavItems, getNavToneClasses } from "@/lib/navigation"
 import { cn } from "@/lib/utils"
 
 const HEADER_OFFSET = 96
@@ -36,7 +38,9 @@ function getActiveHref(items) {
 }
 
 export function SiteHeader() {
-  const items = useMemo(() => NAV_ITEMS, [])
+  const { language, toggleLanguage } = useLanguage()
+  const isEnglish = language === "en"
+  const items = useMemo(() => getNavItems(language), [language])
   const [activeHref, setActiveHref] = useState(items[0]?.href ?? "#inicio")
 
   useEffect(() => {
@@ -91,7 +95,7 @@ export function SiteHeader() {
           <span className="truncate text-sm font-bold tracking-tight sm:text-[1.02rem]">Gustavo Mardones</span>
         </Link>
 
-        <nav className="hidden items-center gap-1 md:flex" aria-label="Navegación principal">
+        <nav className="hidden items-center gap-1 md:flex" aria-label={isEnglish ? "Primary navigation" : "Navegacion principal"}>
           {items.map((item) => {
             const toneClasses = getNavToneClasses(item.tone)
             const isActive = item.href === activeHref
@@ -118,8 +122,19 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex items-center gap-2">
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            onClick={toggleLanguage}
+            aria-label={isEnglish ? "Switch to Spanish" : "Cambiar a ingles"}
+            className="gap-1.5 border-cyan-200/80 text-cyan-700 hover:bg-cyan-50 dark:border-cyan-900/70 dark:text-cyan-300 dark:hover:bg-cyan-900/30"
+          >
+            <Languages className="h-3.5 w-3.5" aria-hidden="true" />
+            <span className="font-semibold">{isEnglish ? "ES" : "EN"}</span>
+          </Button>
           <ThemeToggle />
-          <MobileNav items={items} activeHref={activeHref} onNavigate={handleNavigate} />
+          <MobileNav items={items} activeHref={activeHref} onNavigate={handleNavigate} language={language} />
         </div>
       </div>
     </header>
