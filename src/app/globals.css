@@ -45,6 +45,8 @@
 
 :root {
   --radius: 0.625rem;
+  --header-height: 4rem;
+  --section-top-offset: calc(var(--header-height) + 0.75rem);
   --motion-x: 0;
   --motion-y: 0;
   --scroll-progress: 0;
@@ -118,11 +120,12 @@
 @layer base {
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 5.5rem;
+    scroll-padding-top: var(--section-top-offset);
   }
 
   section[id] {
-    scroll-margin-top: clamp(5.5rem, 18vh, 10rem);
+    scroll-margin-top: var(--section-top-offset);
+    min-height: calc(100svh - var(--header-height));
   }
 
   * {

@@ -11,10 +11,16 @@ import { useLanguage } from "@/components/language-provider"
 import { getNavItems, getNavToneClasses } from "@/lib/navigation"
 import { cn } from "@/lib/utils"
 
-const HEADER_OFFSET = 96
-
 function toSectionId(href) {
   return href.replace("#", "")
+}
+
+function getSectionTopOffset() {
+  if (typeof window === "undefined") return 76
+
+  const computed = window.getComputedStyle(document.documentElement).getPropertyValue("--section-top-offset")
+  const parsed = Number.parseFloat(computed)
+  return Number.isFinite(parsed) ? parsed : 76
 }
 
 function getActiveHref(items) {
@@ -70,7 +76,8 @@ export function SiteHeader() {
     const section = document.getElementById(toSectionId(href))
     if (!section) return
 
-    const top = section.getBoundingClientRect().top + window.scrollY - HEADER_OFFSET
+    const offset = getSectionTopOffset()
+    const top = section.getBoundingClientRect().top + window.scrollY - offset
     window.scrollTo({ top, behavior: "smooth" })
     window.history.replaceState(null, "", href)
     setActiveHref(href)
@@ -81,7 +88,7 @@ export function SiteHeader() {
   }
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/90 shadow-sm backdrop-blur supports-[backdrop-filter]:bg-background/75">
+    <header data-site-header className="sticky top-0 z-50 w-full border-b bg-background/90 shadow-sm backdrop-blur supports-[backdrop-filter]:bg-background/75">
       <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between gap-3 px-4 md:px-6">
         <Link
           href="#inicio"

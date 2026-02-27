@@ -441,7 +441,7 @@ export default function Portfolio() {
         <section
           id="sobre-mi"
           aria-labelledby="sobre-mi-title"
-          className="bg-muted/45 py-20"
+          className="bg-muted/45 py-20 md:flex md:items-center"
           style={{ contentVisibility: "auto", containIntrinsicSize: "980px" }}
         >
           <div className="mx-auto grid w-full max-w-6xl gap-10 px-4 md:px-6 lg:grid-cols-[1.08fr_0.92fr] lg:items-center">
@@ -766,7 +766,7 @@ export default function Portfolio() {
         <section
           id="contacto"
           aria-labelledby="contacto-title"
-          className="py-20"
+          className="py-20 md:flex md:items-center"
           style={{ contentVisibility: "auto", containIntrinsicSize: "860px" }}
         >
           <div className="mx-auto w-full max-w-6xl px-4 md:px-6">
