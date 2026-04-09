@@ -10,7 +10,8 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 
 const MESSAGE_MAX_LENGTH = 5000
-const REQUEST_TIMEOUT_MS = 12000
+const REQUEST_TIMEOUT_MS = 35000
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 const INITIAL_FORM_STATE = {
   name: "",
@@ -20,20 +21,85 @@ const INITIAL_FORM_STATE = {
   website: "",
 }
 
+function normalizeForm(values) {
+  return {
+    name: values.name.trim(),
+    email: values.email.trim(),
+    subject: values.subject.trim(),
+    message: values.message.trim(),
+    website: values.website.trim(),
+  }
+}
+
+function validateForm(values, t) {
+  const errors = {}
+
+  if (!values.name) {
+    errors.name = t("Ingresa tu nombre.", "Enter your name.")
+  }
+
+  if (!values.email) {
+    errors.email = t("Ingresa tu correo.", "Enter your email.")
+  } else if (!EMAIL_REGEX.test(values.email)) {
+    errors.email = t("Ingresa un correo válido.", "Enter a valid email address.")
+  }
+
+  if (!values.subject) {
+    errors.subject = t("Ingresa un asunto.", "Enter a subject.")
+  }
+
+  if (!values.message) {
+    errors.message = t("Cuéntame brevemente qué necesitas.", "Tell me briefly what you need.")
+  }
+
+  return errors
+}
+
+async function parseResponseBody(response) {
+  const contentType = response.headers.get("content-type") || ""
+
+  if (contentType.includes("application/json")) {
+    try {
+      return await response.json()
+    } catch {
+      return null
+    }
+  }
+
+  try {
+    const text = await response.text()
+    if (!text) return null
+    if (text.trim().startsWith("<")) return null
+
+    return { message: text }
+  } catch {
+    return null
+  }
+}
+
 export function ContactForm() {
   const { language } = useLanguage()
   const isEnglish = language === "en"
   const t = (es, en) => (isEnglish ? en : es)
 
   const [form, setForm] = useState(INITIAL_FORM_STATE)
+  const [errors, setErrors] = useState({})
   const [isSending, setIsSending] = useState(false)
   const [notice, setNotice] = useState(null)
 
   async function handleSubmit(event) {
     event.preventDefault()
-    setIsSending(true)
     setNotice(null)
 
+    const payload = normalizeForm(form)
+    const nextErrors = validateForm(payload, t)
+    setErrors(nextErrors)
+
+    if (Object.keys(nextErrors).length > 0) {
+      return
+    }
+
+    setIsSending(true)
     const controller = new AbortController()
     const timeoutId = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS)
 
@@ -44,36 +110,45 @@ export function ContactForm() {
           "Content-Type": "application/json",
           "X-Language": language,
         },
-        body: JSON.stringify(form),
+        body: JSON.stringify(payload),
         signal: controller.signal,
       })
 
-      const data = await response.json()
+      const data = await parseResponseBody(response)
 
       if (!response.ok) {
+        const fallbackMessage =
+          response.status >= 500
+            ? t(
+                "El servidor devolvió un error interno. Si cambiaste .env.local, reinicia npm run dev e inténtalo nuevamente.",
+                "The server returned an internal error. If you changed .env.local, restart npm run dev and try again.",
+              )
+            : t("No se pudo enviar el mensaje. Inténtalo de nuevo.", "The message could not be sent. Please try again.")
+
         setNotice({
           type: "error",
-          message: isEnglish
-            ? "The message could not be sent. Please try again."
-            : data?.message || "No se pudo enviar el mensaje. Intentalo de nuevo.",
+          message: data?.message || fallbackMessage,
         })
         return
       }
 
       setNotice({
         type: "success",
-        message: t("Mensaje enviado con exito. Te respondere pronto.", "Message sent successfully. I will reply soon."),
+        message:
+          data?.message ||
+          t("Mensaje enviado con éxito. Te responderé pronto.", "Message sent successfully. I will reply soon."),
       })
       setForm(INITIAL_FORM_STATE)
+      setErrors({})
     } catch (error) {
       const timeoutMessage =
         error?.name === "AbortError"
           ? t(
-              "La solicitud tardo demasiado. Revisa tu conexion e intentalo nuevamente.",
+              "La solicitud tardó demasiado. Revisa tu conexión e inténtalo nuevamente.",
               "The request took too long. Check your connection and try again.",
             )
           : t(
-              "No se pudo enviar el mensaje. Revisa tu conexion e intentalo nuevamente.",
+              "No se pudo enviar el mensaje. Revisa tu conexión e inténtalo nuevamente.",
               "The message could not be sent. Check your connection and try again.",
             )
 
@@ -90,6 +165,14 @@ export function ContactForm() {
   function updateField(event) {
     const { name, value } = event.target
     setForm((prev) => ({ ...prev, [name]: value }))
+
+    setErrors((prev) => {
+      if (!prev[name]) return prev
+      const next = { ...prev }
+      delete next[name]
+      return next
+    })
+
     if (notice) setNotice(null)
   }
 
@@ -114,9 +197,17 @@ export function ContactForm() {
             onChange={updateField}
             autoComplete="name"
             maxLength={120}
+            aria-invalid={Boolean(errors.name)}
+            aria-describedby={errors.name ? "nombre-error" : undefined}
             required
           />
+          {errors.name ? (
+            <p id="nombre-error" className="text-xs text-red-600 dark:text-red-300">
+              {errors.name}
+            </p>
+          ) : null}
         </div>
+
         <div className="space-y-2">
           <Label htmlFor="email" className="text-slate-700 dark:text-slate-200">
             Email
@@ -131,8 +222,15 @@ export function ContactForm() {
             onChange={updateField}
             autoComplete="email"
             maxLength={160}
+            aria-invalid={Boolean(errors.email)}
+            aria-describedby={errors.email ? "email-error" : undefined}
             required
           />
+          {errors.email ? (
+            <p id="email-error" className="text-xs text-red-600 dark:text-red-300">
+              {errors.email}
+            </p>
+          ) : null}
         </div>
       </div>
 
@@ -148,8 +246,15 @@ export function ContactForm() {
           value={form.subject}
           onChange={updateField}
           maxLength={160}
+          aria-invalid={Boolean(errors.subject)}
+          aria-describedby={errors.subject ? "asunto-error" : undefined}
           required
         />
+        {errors.subject ? (
+          <p id="asunto-error" className="text-xs text-red-600 dark:text-red-300">
+            {errors.subject}
+          </p>
+        ) : null}
       </div>
 
       <div className="space-y-2">
@@ -159,17 +264,27 @@ export function ContactForm() {
         <Textarea
           id="mensaje"
           name="message"
-          placeholder={t("Escribe tu mensaje aqui...", "Write your message here...")}
-          className="min-h-[120px] border-cyan-200/80 bg-white/80 focus-visible:border-cyan-500 focus-visible:ring-cyan-500/30 dark:border-cyan-900/60 dark:bg-cyan-950/10"
+          placeholder={t("Escribe tu mensaje aquí...", "Write your message here...")}
+          className="min-h-[140px] border-cyan-200/80 bg-white/80 focus-visible:border-cyan-500 focus-visible:ring-cyan-500/30 dark:border-cyan-900/60 dark:bg-cyan-950/10"
           value={form.message}
           onChange={updateField}
           maxLength={MESSAGE_MAX_LENGTH}
-          aria-describedby="mensaje-counter"
+          aria-invalid={Boolean(errors.message)}
+          aria-describedby={errors.message ? "mensaje-error mensaje-counter" : "mensaje-counter"}
           required
         />
-        <p id="mensaje-counter" className="text-xs text-muted-foreground">
-          {form.message.length}/{MESSAGE_MAX_LENGTH}
-        </p>
+        <div className="flex items-center justify-between gap-3 text-xs">
+          {errors.message ? (
+            <p id="mensaje-error" className="text-red-600 dark:text-red-300">
+              {errors.message}
+            </p>
+          ) : (
+            <span />
+          )}
+          <p id="mensaje-counter" className="text-muted-foreground">
+            {form.message.length}/{MESSAGE_MAX_LENGTH}
+          </p>
+        </div>
       </div>
 
       <div className="hidden" aria-hidden="true">

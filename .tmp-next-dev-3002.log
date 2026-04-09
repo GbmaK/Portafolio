@@ -1,0 +1,21 @@
+
+> mi-portafolio@0.1.0 dev
+> next dev --turbopack --port 3002
+
+[32m✔[0m [33mConsole Ninja[0m extension is connected to [33mNext.js[0m, see [36mhttps://tinyurl.com/2vt8jxzw[0m
+⚠ Console Ninja Turbopack support is a PRO feature, [33mcurrently available to community users while in preview[0m
+⚠ Console Ninja Turbopack support is a PRO feature, [33mcurrently available to community users while in preview[0m
+   ▲ Next.js 15.3.8 (Turbopack)
+   - Local:        http://localhost:3002
+   - Network:      http://25.1.110.73:3002
+   - Environments: .env.local
+
+ ✓ Starting...
+Creating turbopack project {
+  dir: 'C:\\Users\\Overlord\\Desktop\\Drivers\\react\\mi-portafolio',
+  testMode: true
+}
+ ✓ Ready in 1098ms
+ ○ Compiling /api/contact ...
+ ✓ Compiled /api/contact in 713ms
+ POST /api/contact 200 in 24495ms

@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react"
 import { Moon, Sun } from "lucide-react"
 
+import { useLanguage } from "@/components/language-provider"
 import { Button } from "@/components/ui/button"
 
 const STORAGE_KEY = "portfolio-theme"
@@ -19,6 +20,8 @@ function getInitialTheme() {
 }
 
 export function ThemeToggle() {
+  const { language } = useLanguage()
+  const isEnglish = language === "en"
   const [theme, setTheme] = useState("light")
   const [mounted, setMounted] = useState(false)
 
@@ -37,15 +40,24 @@ export function ThemeToggle() {
   }, [theme, mounted])
 
   const isDark = theme === "dark"
+  const label = isDark
+    ? isEnglish
+      ? "Switch to light mode"
+      : "Cambiar a modo claro"
+    : isEnglish
+      ? "Switch to dark mode"
+      : "Cambiar a modo oscuro"
 
   return (
     <Button
       type="button"
-      variant="outline"
+      variant="ghost"
       size="icon"
       onClick={() => setTheme((prevTheme) => (prevTheme === "dark" ? "light" : "dark"))}
-      aria-label={isDark ? "Activar modo claro" : "Activar modo oscuro"}
-      title={isDark ? "Modo claro" : "Modo oscuro"}
+      aria-label={label}
+      aria-pressed={isDark}
+      title={label}
+      className="rounded-full text-foreground/75 hover:bg-white/70 hover:text-foreground dark:hover:bg-white/10"
     >
       {mounted && isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
     </Button>

@@ -1,46 +1,40 @@
-﻿"use client"
+"use client"
 
 import { useEffect, useMemo, useState } from "react"
 import Link from "next/link"
-import { Code, Languages } from "lucide-react"
+import { Code } from "lucide-react"
 
 import { MobileNav } from "@/components/mobile-nav"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { Button } from "@/components/ui/button"
 import { useLanguage } from "@/components/language-provider"
+import { portfolioProfile } from "@/content/portfolio-content"
 import { getNavItems, getNavToneClasses } from "@/lib/navigation"
+import { getSectionTopOffset, scrollToSection as smoothScrollToSection } from "@/lib/scroll-to-section"
 import { cn } from "@/lib/utils"
 
 function toSectionId(href) {
   return href.replace("#", "")
 }
 
-function getSectionTopOffset() {
-  if (typeof window === "undefined") return 76
-
-  const computed = window.getComputedStyle(document.documentElement).getPropertyValue("--section-top-offset")
-  const parsed = Number.parseFloat(computed)
-  return Number.isFinite(parsed) ? parsed : 76
-}
-
 function getActiveHref(items) {
-  const viewportTarget = window.innerHeight * 0.32
-  let bestHref = items[0]?.href ?? "#inicio"
-  let bestDistance = Number.POSITIVE_INFINITY
+  const threshold = getSectionTopOffset() + 18
+  let currentHref = items[0]?.href ?? "#inicio"
 
   for (const item of items) {
     const element = document.getElementById(toSectionId(item.href))
     if (!element) continue
 
     const rect = element.getBoundingClientRect()
-    const distance = Math.abs(rect.top - viewportTarget)
-    if (distance < bestDistance) {
-      bestDistance = distance
-      bestHref = item.href
+    if (rect.top <= threshold) {
+      currentHref = item.href
+      continue
     }
+
+    break
   }
 
-  return bestHref
+  return currentHref
 }
 
 export function SiteHeader() {
@@ -73,14 +67,10 @@ export function SiteHeader() {
   }, [items])
 
   function scrollToSection(href) {
-    const section = document.getElementById(toSectionId(href))
-    if (!section) return
-
-    const offset = getSectionTopOffset()
-    const top = section.getBoundingClientRect().top + window.scrollY - offset
-    window.scrollTo({ top, behavior: "smooth" })
-    window.history.replaceState(null, "", href)
-    setActiveHref(href)
+    const didScroll = smoothScrollToSection(href)
+    if (didScroll) {
+      setActiveHref(href)
+    }
   }
 
   function handleNavigate(href) {
@@ -88,21 +78,32 @@ export function SiteHeader() {
   }
 
   return (
-    <header data-site-header className="sticky top-0 z-50 w-full border-b bg-background/90 shadow-sm backdrop-blur supports-[backdrop-filter]:bg-background/75">
+    <header
+      data-site-header
+      className="sticky top-0 z-50 w-full border-b border-white/35 bg-background/80 backdrop-blur-2xl supports-[backdrop-filter]:bg-background/68 dark:border-white/10"
+    >
       <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between gap-3 px-4 md:px-6">
         <Link
           href="#inicio"
-          className="group flex min-w-0 items-center gap-2 rounded-md px-2 py-1.5 transition-colors hover:bg-muted"
+          className="group flex min-w-0 items-center gap-3 rounded-full px-1 py-1 transition-colors"
           onClick={(event) => {
             event.preventDefault()
             scrollToSection("#inicio")
           }}
         >
-          <Code className="h-5 w-5 shrink-0 text-indigo-600 transition-colors group-hover:text-cyan-600 dark:text-indigo-300 dark:group-hover:text-cyan-300" />
-          <span className="truncate text-sm font-bold tracking-tight sm:text-[1.02rem]">Gustavo Mardones</span>
+          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/65 bg-white/80 text-indigo-700 shadow-sm transition-colors group-hover:border-cyan-200 group-hover:bg-cyan-50 group-hover:text-cyan-700 dark:border-white/10 dark:bg-white/5 dark:text-indigo-300 dark:group-hover:border-cyan-900/60 dark:group-hover:bg-cyan-950/30 dark:group-hover:text-cyan-300">
+            <Code className="h-4 w-4" />
+          </div>
+          <div className="min-w-0">
+            <span className="block truncate text-sm font-semibold tracking-tight sm:text-base">{portfolioProfile.name}</span>
+            <span className="hidden truncate text-xs text-muted-foreground xl:block">{portfolioProfile.role[language]}</span>
+          </div>
         </Link>
 
-        <nav className="hidden items-center gap-1 md:flex" aria-label={isEnglish ? "Primary navigation" : "Navegacion principal"}>
+        <nav
+          className="hidden items-center gap-0.5 rounded-full border border-white/45 bg-white/60 p-1 shadow-sm backdrop-blur-sm lg:flex dark:border-white/10 dark:bg-white/[0.04]"
+          aria-label={isEnglish ? "Primary navigation" : "Navegaci\u00f3n principal"}
+        >
           {items.map((item) => {
             const toneClasses = getNavToneClasses(item.tone)
             const isActive = item.href === activeHref
@@ -113,9 +114,9 @@ export function SiteHeader() {
                 href={item.href}
                 aria-current={isActive ? "page" : undefined}
                 className={cn(
-                  "rounded-md px-3 py-1.5 text-[0.94rem] font-semibold tracking-[0.01em] transition-colors",
+                  "rounded-full px-3 py-1.5 text-sm font-medium tracking-[0.01em] transition-colors",
                   toneClasses.hover,
-                  isActive ? toneClasses.active : "text-foreground/80",
+                  isActive ? toneClasses.active : "text-foreground/70",
                 )}
                 onClick={(event) => {
                   event.preventDefault()
@@ -128,17 +129,16 @@ export function SiteHeader() {
           })}
         </nav>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 rounded-full border border-white/45 bg-white/60 px-1.5 py-1 shadow-sm backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.04]">
           <Button
             type="button"
-            variant="outline"
+            variant="ghost"
             size="sm"
             onClick={toggleLanguage}
-            aria-label={isEnglish ? "Switch to Spanish" : "Cambiar a ingles"}
-            className="gap-1.5 border-cyan-200/80 text-cyan-700 hover:bg-cyan-50 dark:border-cyan-900/70 dark:text-cyan-300 dark:hover:bg-cyan-900/30"
+            aria-label={isEnglish ? "Switch to Spanish" : "Cambiar a ingl\u00e9s"}
+            className="rounded-full px-3 text-sm font-medium text-foreground/75 hover:bg-white/85 hover:text-foreground dark:hover:bg-white/10"
           >
-            <Languages className="h-3.5 w-3.5" aria-hidden="true" />
-            <span className="font-semibold">{isEnglish ? "ES" : "EN"}</span>
+            {isEnglish ? "ES" : "EN"}
           </Button>
           <ThemeToggle />
           <MobileNav items={items} activeHref={activeHref} onNavigate={handleNavigate} language={language} />
